@@ -22,54 +22,8 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
-    @GetMapping()
-    public String getAllUsersForm(Model model) {
-        model.addAttribute("user", userService.getAllUsers());
-        return "admin/admin";
-    }
-
-    @GetMapping("/{id}")
-    public String getShowForm(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        return "admin/show";
-    }
-
-    @GetMapping("/new")
-    public String getUserCreationForm(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "admin/new";
-    }
-
-    @PostMapping
-    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "admin/new";
-        } else {
-            userService.createNewUser(user);
-            return "redirect:/admin";
-        }
-    }
-
-    @GetMapping("/edit/{id}")
-    public String getUserEditionForm(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "admin/edit";
-    }
-
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "admin/edit";
-        } else {
-            userService.updateUser(user);
-            return "redirect:/admin";
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id) {
-        userService.deleteUser(id);
-        return "redirect:/admin";
+    @GetMapping
+    public String getAllUsers() {
+        return "admin";
     }
 }
