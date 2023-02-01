@@ -7,16 +7,17 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private final UserService userService;
-    private final PasswordEncoderConfiguration passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserService userService, PasswordEncoderConfiguration passwordEncoder) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserService userService, PasswordEncoder passwordEncoder) {
         this.successUserHandler = successUserHandler;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
@@ -27,9 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
-                .antMatchers("/admin/**").permitAll()// отключение секьюрности
-                //.antMatchers("/admin/**").hasRole("ADMIN")
-                //.antMatchers("/user/**").hasAnyRole("USER","ADMIN")
+                //.antMatchers("/admin/**").permitAll()// отключение секьюрности
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
                 //.antMatchers("login").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -46,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
-                .passwordEncoder(passwordEncoder.passwordEncoder());
+                .passwordEncoder(passwordEncoder);
     }
 
 

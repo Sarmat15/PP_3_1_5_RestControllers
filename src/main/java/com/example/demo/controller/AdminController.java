@@ -22,8 +22,8 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
-    @GetMapping
-    public String getAllUsers() {
-        return "admin";
-    }
+   // @GetMapping
+  //  public String getAllUsers() {
+      //  return "admin";
+   // }
 }

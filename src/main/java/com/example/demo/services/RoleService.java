@@ -6,12 +6,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface RoleService {
-    public Role findById(int id);
 
-    public List<Role> getAllRoles();
-
-    public void addRole(Role role);
 
     List<Role> findAllRoles();
-    void saveRole(Role role);
+
 }

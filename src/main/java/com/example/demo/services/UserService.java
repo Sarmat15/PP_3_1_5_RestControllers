@@ -7,15 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface UserService extends UserDetailsService {
-    public List<User> getAllUsers();
-
-     void createNewUser(User user);
-
-     User getUser(int id);
-
-     void updateUser(User user);
-
-     void deleteUser(int id);
 
      User findUserByUsername(String username);
 
@@ -26,4 +17,8 @@ public interface UserService extends UserDetailsService {
  User getUserById(Integer id);
 
  User findByEmail(String name);
+
+ void updateUser(User user);
+
+ List<User> getAllUsers();
 }

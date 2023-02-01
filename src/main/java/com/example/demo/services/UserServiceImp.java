@@ -33,37 +33,8 @@ public class UserServiceImp implements UserService {
         return user;
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
 
-    @Transactional
-    @Override
-    public void createNewUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
 
-    @Transactional(readOnly = true)
-    @Override
-    public User getUser(int id) {
-        return userRepository.findById(id).get();
-    }
-
-    @Transactional
-    @Override
-    public void updateUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
-
-    @Transactional
-    @Override
-    public void deleteUser(int id) {
-        userRepository.delete(userRepository.findById(id).get());
-    }
 
     @Transactional(readOnly = true)
     @Override
